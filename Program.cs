@@ -41,8 +41,6 @@
 
         Console.WriteLine("Bye :)");
     }
-
-
     static void InputNumbers(Calculator calculator)
     {
         Console.WriteLine("Enter number1 : ");
@@ -52,10 +50,4 @@
         calculator.SecondNumber = Convert.ToInt32(Console.ReadLine());
 
     }
-
-
-
-
-
-
 }

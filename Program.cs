@@ -3,22 +3,16 @@
     private static void Main(string[] args)
     {
         Console.Clear();
+        Calculator calculator = new Calculator();
 
-        var calculator = new Calculator();
-        bool runAgain = true;
-
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("-------------------");
-        Console.WriteLine("Calculator Program");
-        Console.WriteLine("-------------------\n");
-        Console.ResetColor();
-
-        while (runAgain)
+        do
         {
+            Console.WriteLine("\t------------------ ");
+            Console.WriteLine("\tCalculator Program");
+            Console.WriteLine("\t------------------");
             try
             {
-                InputNumbers(calculator);
-
+                setCalculatorOperators(calculator);
             }
             catch (Exception ex)
             {
@@ -26,28 +20,33 @@
                 Environment.Exit(0);
             }
 
-            calculator.PrintMenu();
+            calculator.printOptions();
             calculator.Operand = Console.ReadLine();
-            var result = calculator.Process(calculator.FirstNumber, calculator.SecondNumber);
-            Console.WriteLine($"Your result : {calculator.FirstNumber} {calculator.Operand} {calculator.SecondNumber} = {result}");
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Would you like to continue ? ( y = yes , n = no )");
-            var answer = Console.ReadLine();
-            runAgain = answer.ToLower() == "y";
-            Console.ResetColor();
-        }
+            try
+            {
+                var result = calculator.Process();
+                Console.WriteLine(calculator);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("Would you like to continue ? Y = yes , N = no");
+
+        } while (Console.ReadLine().ToUpper() == "Y");
+
         Console.Clear();
+        Console.WriteLine("Good Bye :)");
 
-        Console.WriteLine("Bye :)");
     }
-    static void InputNumbers(Calculator calculator)
+    private static void setCalculatorOperators(Calculator calculator)
     {
-        Console.WriteLine("Enter number1 : ");
-        calculator.FirstNumber = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter number 1 : ");
+        calculator.FirstNumber = Convert.ToDouble(Console.ReadLine());
 
-        Console.WriteLine("Enter number2 : ");
-        calculator.SecondNumber = Convert.ToInt32(Console.ReadLine());
-
+        Console.WriteLine("Enter number 2 : ");
+        calculator.SecondNumber = Convert.ToDouble(Console.ReadLine());
     }
 }
